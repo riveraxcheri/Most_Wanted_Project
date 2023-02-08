@@ -146,8 +146,7 @@ function displayPerson(person) {
     personInfo += `Weight: ${person.weight}\n`;
     personInfo += `Eye Color: ${person.eyeColor}\n`;
     personInfo += `Occupation: ${person.occupation}\n`;
-    personInfo += `Parents: ${person.parents}\n`;
-    personInfo += `Current Spouse: ${person.currentSpouse}\n`;
+
     //! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
     alert(personInfo);
 }
@@ -193,3 +192,47 @@ function chars(input) {
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
+// Attempting Recursion
+// function recursiveFindPpl(person, array=[]) {
+//     let parents = person.parents;
+//     array = [person]
+// }
+
+//Attempting parents function
+function findParents(person, people) {
+    return people.filter( (el) => person.parents.includes(el.id) );
+}
+//use for finding descendants but specificing using index numbers like in siblings and reversing el.id and person.parents in function
+
+// let parents = people.filter(function(person)){
+//     if (person.parents === people.id) {
+//         return true;
+//     }
+// }
+//     personInfo += `Parents: ${displayPeople(parents)}\n`;
+// }
+function findSpouse(person, people) {
+    return people.filter( (el) => person.currentSpouse === el.id );
+    // let spouseArray = people.filter(function(el){
+    //     if(person.currentSpouse === el.id){
+    //         return true;
+    //     }
+    // })
+    // return spouseArray;
+
+}
+function findSiblings(person, people) {
+    return people.filter( (el) => person.parents.includes(el.parents[0]) || person.parents.includes(el.parents[1]))
+}
+
+function findPersonFamily(person, people) {
+    let personFamily = findSpouse(person, people);
+    personFamily += findParents(person, people);
+    personFamily += findSiblings(person, people);
+    alert (personFamily);
+     
+}
+
+// let parent= findParents(person,people);
+// personInfo += `Parents: ${displayPerson(parent)}\n`;
+// personInfo += `Current Spouse: ${displayPeople(person.currentSpouse)}\n`;
