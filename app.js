@@ -138,7 +138,8 @@ function displayPeople(people) {
  * @param {Object} person       A singular object.
  */
 function displayPerson(person) {
-    let personInfo = `First Name: ${person.firstName}\n`;
+    let personInfo = `Id: ${person.id}\n`;
+    personInfo += `First Name: ${person.firstName}\n`;
     personInfo += `Last Name: ${person.lastName}\n`;
     personInfo += `Gender: ${person.gender}\n`;
     personInfo += `Date of Birth: ${person.dob}\n`;
@@ -226,12 +227,20 @@ function findSiblings(person, people) {
 }
 
 function findPersonFamily(person, people) {
-    let personFamily = findSpouse(person, people);
-    personFamily += findParents(person, people);
-    personFamily += findSiblings(person, people);
-    alert (personFamily);
-     
-}
+    let family = displayPeople(findSpouse(person, people)); 
+    family += displayPeople(findParents(person, people));
+    family += displayPeople(findSiblings(person, people));
+    
+    alert (family);
+}   
+    
+//     let spouse = findSpouse(person, people);
+//     let parents = findParents(person, people);
+//     let siblings = findSiblings(person, people); 
+//     let family = [`Spouse: ${displayPeople(spouse)} \n Parent: ${displayPeople(parents)} \n Sibling: ${displayPeople(siblings)}`];
+//     return family
+
+// }
 
 // let parent= findParents(person,people);
 // personInfo += `Parents: ${displayPerson(parent)}\n`;
