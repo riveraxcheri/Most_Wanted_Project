@@ -122,11 +122,14 @@ function searchByName(people) {
  * @param {Array} people        A collection of person objects.
  */
 function displayPeople(people) {
-  return "\n" + people
-    .map(function (person) {
-      return `${person.firstName} ${person.lastName}`;
-    })
-    .join("\n");
+  return (
+    "\n" +
+    people
+      .map(function (person) {
+        return `${person.firstName} ${person.lastName}`;
+      })
+      .join("\n")
+  );
 }
 // End of displayPeople()
 
@@ -231,8 +234,8 @@ function findPersonFamily(person, people) {
   let spouseArray = findSpouse(person, people);
   let parentsArray = findParents(person, people);
   let siblingsArray = findSiblings(person, people);
-  let family = familyArrayLengthCheck(spouseArray, "Spouse")+ "\n";
-  family += familyArrayLengthCheck(parentsArray, "Parent")+ "\n";
+  let family = familyArrayLengthCheck(spouseArray, "Spouse") + "\n";
+  family += familyArrayLengthCheck(parentsArray, "Parent") + "\n";
   family += familyArrayLengthCheck(siblingsArray, "Sibling");
 
   return family;
@@ -242,7 +245,7 @@ function familyArrayLengthCheck(array, string) {
   if (array.length === 0) {
     return `${string}: No ${string} in database`;
   }
-return `${string}: ${displayPeople(array)}`  
+  return `${string}: ${displayPeople(array)}`;
 }
 //     let spouse = findSpouse(person, people);
 //     let parents = findParents(person, people);
@@ -255,3 +258,20 @@ return `${string}: ${displayPeople(array)}`
 // let parent= findParents(person,people);
 // personInfo += `Parents: ${displayPerson(parent)}\n`;
 // personInfo += `Current Spouse: ${displayPeople(person.currentSpouse)}\n`;
+
+//Recursion to find person's descendants
+//filtering to see if person's id is listed as any people's parents
+function findPersonDescendants(person, people) {
+  let descendantsArray = people.filter(
+    (el) =>
+      person.id.includes(el.parents[0]) || person.id.includes(el.parents[1])
+  );
+  let array = [];
+  if (descendantsArray.length === 0) {
+    return "No Descendants in database";
+  }
+  for (let i = 0; i < descendantsArray.length; i++) {
+    array = array.concat(findPersonDescendants(descendantsArray[i]));
+  }
+  return `${displayPeople(array)}`;
+}
