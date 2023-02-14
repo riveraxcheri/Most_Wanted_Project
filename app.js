@@ -264,11 +264,14 @@ function familyArrayLengthCheck(array, string) {
 function findPersonDescendants(person, people) {
   let descendantsArray = people.filter(
     (el) =>
-      person.id.includes(el.parents[0]) || person.id.includes(el.parents[1])
+      person.id === el.parents[0] || person.id === el.parents[1]
+    // let descendantsArray = people.filter(
+    //   (el) =>
+    // person.id.includes(el.parents[0]) || person.id.includes(el.parents[1])
   );
-  let array = [];
+  let array = [descendantsArray];
   if (descendantsArray.length === 0) {
-    return "No Descendants in database";
+    return array;
   }
   for (let i = 0; i < descendantsArray.length; i++) {
     array = array.concat(findPersonDescendants(descendantsArray[i]));
